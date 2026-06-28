@@ -35,25 +35,32 @@ if task=="Translate":
         ]
 )
 
+# initializing session state
+if "response" not in st.session_state:
+    st.session_state.response = ""
+if "prompt" not in st.session_state:
+    st.session_state.prompt = "" 
+
+# inside generate button — save to session state
 if st.button("Generate"):
     if text:
         with st.spinner("Generating..."):
-            prompt = create_prompt(task, text, option)
-            st.subheader("Prompt")
-            st.code(prompt)
-
-            output = Utility(prompt)
-            st.subheader("Output")
-            st.write(output)
-
+            st.session_state.prompt = create_prompt(task, text, option)
+            st.session_state.response = Utility(st.session_state.prompt)
     else:
         st.warning("Provide input")
 
+if st.session_state.response:
+    st.subheader("Prompt")
+    st.code(st.session_state.prompt)
+
+    st.subheader("Response")
+    st.write(st.session_state.response)
 
     st.download_button(
-        label="Download response",
-        data=output,
-        file_name="Generated_output.txt",
+        label="Download Response",
+        data=st.session_state.response,
+        file_name="Generated_response.txt",
         mime="text/plain",
         icon=":material/download:",
     )
