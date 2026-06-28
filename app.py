@@ -1,4 +1,5 @@
 import streamlit as st
+# from Backend import Utility
 from Backend import Utility
 from Prompt import create_prompt
 
@@ -47,3 +48,12 @@ if st.button("Generate"):
 
     else:
         st.warning("Provide input")
+
+
+    st.download_button(
+        label="Download response",
+        data=output,
+        file_name="Generated_output.txt",
+        mime="text/plain",
+        icon=":material/download:",
+    )
