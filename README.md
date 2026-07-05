@@ -72,7 +72,7 @@ streamlit run app.py
 - [ ] Gemini Flash as alternative LLM
 - [ ] Prompt history tracking
 - [ ] Chat with PDF using RAG + LangChain
-- [ ] Download output button
+- [X] Download output button
 
 ---
 
