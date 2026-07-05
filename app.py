@@ -1,6 +1,6 @@
 import streamlit as st
-# from Backend import Utility
-from Backend import Utility
+from Backend_google import Utility_google
+from Backend_openai import Utility
 from Prompt import create_prompt
 
 
@@ -12,16 +12,24 @@ st.title("Universal AI Utility")
 st.caption("AI application that performs multiple tasks using a single interface.")
 
 task = st.selectbox(
-"Select Task",
-[
-    "Summarize",
-    "Translate",
-    "Explain",
-    "Generate Email",
-    "Rewrite"
-])
+    label="Choose AI Action",
+    options=[
+        "Summarize",
+        "Translate",
+        "Explain",
+        "Generate Email",
+        "Rewrite"
+    ],
+    index=None,
+    placeholder="Pick an operation...",
+)
 
-text = st.text_area( "Enter Input" )
+text = st.text_area(
+    label="Source Content",
+    placeholder="Provide the content for the selected task...",
+    height=200, 
+)
+
 
 option = ""
 
@@ -41,15 +49,30 @@ if "response" not in st.session_state:
 if "prompt" not in st.session_state:
     st.session_state.prompt = "" 
 
+
+# Creating radio option for model choosing: openai, google:
+model_choice = st.selectbox(
+    label="Choose AI Provider",
+    options=("OpenAI", "Google Gemini"),
+    index=None,
+    placeholder="Pick your preferred AI model...",
+)
+
 # inside generate button — save to session state
 if st.button("Generate"):
     if text:
         with st.spinner("Generating..."):
             st.session_state.prompt = create_prompt(task, text, option)
-            st.session_state.response = Utility(st.session_state.prompt)
+
+            # based on model user choose:--> route based on selection
+            if model_choice == "OpenAI":
+                st.session_state.response = Utility(st.session_state.prompt)
+            else:
+                st.session_state.response = Utility_google(st.session_state.prompt)
     else:
         st.warning("Provide input")
 
+# Fetching Response:
 if st.session_state.response:
     st.subheader("Prompt")
     st.code(st.session_state.prompt)
