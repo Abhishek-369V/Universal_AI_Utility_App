@@ -33,15 +33,20 @@ text = st.text_area(
 
 option = ""
 
-if task=="Translate":
+languages = [
+    "Hindi", "Bengali", "Marathi", "Telugu", "Tamil", "Gujarati", 
+    "Urdu", "Kannada", "Odia", "Malayalam","French", "Spanish", 
+    "Chinese", "Japanese", "Arabic", "Russian", "Indonesian",
+]
+
+if task == "Translate":
     option = st.selectbox(
-        "Language",
-        [
-            "French",
-            "Hindi",
-            "Spanish"
-        ]
-)
+        label="Select Target Language",
+        options=languages,
+        index=None,  # Forces the user to select an option manually, preventing accidental triggers
+        placeholder="Choose a language...",  # Displayed when index is None
+        help="Choose the language you want your text translated into."  # Adds a sleek hover icon
+    )
 
 # initializing session state
 if "response" not in st.session_state:
