@@ -1,10 +1,17 @@
 # 🤖 Universal AI Utility App
 
-> **Multi-Task AI Application** | Prompt Routing | Streamlit + OpenAI
+> **Multi-Task AI Application** | Prompt Routing | Streamlit + OpenAI and Gemini
 
-![Python](https://img.shields.io/badge/Python-3.10+-blue)
+![Python](https://img.shields.io/badge/Python-3.10+-green)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.x-red)
-![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4o--mini-green)
+![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4o--mini-blue)
+![OpenAI](https://img.shields.io/badge/Google-gemini--2.5--flash-purple)
+
+---
+
+## 🚀 Live Demo : 
+
+> https://universal-ai-utility.streamlit.app/
 
 ---
 
@@ -13,13 +20,14 @@
 A multi-task AI application that performs 5 different NLP tasks 
 through a single unified interface — built using prompt routing architecture.
 
-> One UI → Multiple Prompts → One Model → Different Outputs
+> One UI → Multiple Prompts → Different Outputs
 
 ---
 
 ## ✨ Current Features
 
 - 5 AI Tasks — Summarize, Translate, Explain, Generate Email, Rewrite
+- Two LLMs models — OpenAI, Google-Gemini 
 - Prompt Routing — routes to correct prompt based on selected task
 - Prompt Transparency — shows constructed prompt before output
 - Input Validation — handles empty inputs gracefully
@@ -31,10 +39,11 @@ through a single unified interface — built using prompt routing architecture.
 ```
 universal_ai_app/
 ├── app.py            # Streamlit UI
-├── backend.py        # OpenAI API call
+├── backend_google.py        # Gemini API call
+├── backend_openai.py        # OpenAI API call
 ├── prompts.py        # Prompt builder
-├── requirements.txt
-└── README.md
+├── README.md
+└── requirements.txt
 ```
 ---
 
@@ -44,7 +53,8 @@ universal_ai_app/
 |---|---|
 | Python | Core language |
 | Streamlit | Frontend UI |
-| OpenAI API (GPT-4o-mini) | LLM |
+| OpenAI API (gpt-4o-mini) | LLM_1 |
+| Gemini API (gemini-2.5-lflash) | LLM_2 |
 
 ---
 
@@ -58,7 +68,8 @@ pip install -r requirements.txt
 
 Create `.streamlit/secrets.toml`:
 ```toml
-OPENAI_API_KEY = "your-key-here"
+OPENAI_API_KEY = "your-openai-key-here"
+GOOGLE_API_KEY = "your-gemini-key-here"
 ```
 
 ```bash
