@@ -80,10 +80,10 @@ streamlit run app.py
 
 ## 🔮 Upcoming Features
 
-- [X] Gemini Flash as alternative LLM
-- [ ] Prompt history tracking
+- [X] ~~Gemini Flash as alternative LLM~~
 - [ ] Chat with PDF using RAG + LangChain
-- [X] Download output button
+- [ ] Add chat history tracking for "chat with pdf"(using RAG)
+- [X] ~~Download output button~~
 
 ---
 
