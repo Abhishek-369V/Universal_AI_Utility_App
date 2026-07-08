@@ -27,7 +27,7 @@ through a single unified interface — built using prompt routing architecture.
 ## ✨ Current Features
 
 - 5 AI Tasks — Summarize, Translate, Explain, Generate Email, Rewrite
-- Two LLMs models — OpenAI, Google-Gemini 
+- Dual LLM support — Google Gemini (free) + OpenAI (BYOK) 
 - Prompt Routing — routes to correct prompt based on selected task
 - Prompt Transparency — shows constructed prompt before output
 - Input Validation — handles empty inputs gracefully
@@ -55,6 +55,15 @@ universal_ai_app/
 | Streamlit | Frontend UI |
 | OpenAI API (gpt-4o-mini) | LLM_1 |
 | Gemini API (gemini-2.5-lflash) | LLM_2 |
+
+---
+
+## 🔑 API Keys
+
+| Model | Access |
+|---|---|
+| Google Gemini | Free — no key needed |
+| OpenAI GPT-4o-mini | Bring your own key → platform.openai.com/api-keys |
 
 ---
 
