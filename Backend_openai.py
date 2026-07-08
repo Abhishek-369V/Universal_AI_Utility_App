@@ -5,7 +5,6 @@ import streamlit as st
 # client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 def Utility_openai(prompt, api_key=None):
-    key = api_key if api_key else st.secrets["OPENAI_API_KEY"]
     client = OpenAI(api_key=api_key)
     
     try:

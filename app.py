@@ -63,10 +63,11 @@ model_choice = st.selectbox(
 user_openai_key = None
 if model_choice == "OpenAI":
     st.info("""
-            ⚠️ Sorry! For the Inconvinience, this model is not available for free now!..
-            - It charges credits for every request. We are Looking forward to fix this and make available for free!.. 
-            - So till then, Use Google Gemini or Enter your own OpenAI API key to continue.
-            > 👉 **Get your key here**: https://platform.openai.com/api-keys  → Sign up → API Keys → Create new secret key
+        **OpenAI requires your own API key.**
+    
+        - 🔑 Get your key at: https://platform.openai.com/api-keys | Sign up → API Keys → Create new secret key
+    
+        - 💡 **Tip:** Try Google Gemini above — it works without any key!
     """)
     user_openai_key = st.text_input(
         "Enter your OpenAI API key",
@@ -74,24 +75,31 @@ if model_choice == "OpenAI":
         placeholder="sk-...."
     )
         
+# Validating user_openai_key!
+def is_valid_openai_key(key):
+    return key.startswith("sk-") and len(key)>20
 
 # inside generate button — save to session state
 if st.button("Generate"):
-    if text:
+    if not task:
+        st.warning("⚠️ AI Action is Not Selected!... Please Choose AI Action")
+    elif not text.strip():
+        st.warning("⚠️ Source content can't be empty!....Please Provide Source Content!")
+    elif task=="Translate" and not option:
+        st.warning("⚠️ Please Provide a Target Language!... ")
+    elif model_choice == "OpenAI" and not user_openai_key:
+        st.warning("⚠️ Please enter your OpenAI API key above to continue.")
+    elif model_choice == "OpenAI" and not is_valid_openai_key(user_openai_key):
+        st.error("Invalid API key: Plz Provide a valid API key") 
+    
+    else: 
         with st.spinner("Generating..."):
             st.session_state.prompt = create_prompt(task, text, option)
-
-            # based on model user choose:--> route based on selection
-            if model_choice == "OpenAI" and not user_openai_key:
-                st.warning("⚠️ Please enter your OpenAI API key above to continue.")
-            elif model_choice == "OpenAI" and not user_openai_key.startswith("sk-"):
-                st.error("Provide a valid API key")
-            elif model_choice == "OpenAI" and user_openai_key.startswith("sk-"):
+            if model_choice == "OpenAI" and is_valid_openai_key(user_openai_key):
                 st.session_state.response = Utility_openai(st.session_state.prompt, api_key=user_openai_key)
             else:
                 st.session_state.response = Utility_google(st.session_state.prompt)
-    else:
-        st.warning("Please Provide required input!")
+
 
 # Fetching Response:
 if st.session_state.response:
